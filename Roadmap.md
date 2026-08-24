@@ -1018,3 +1018,51 @@ Make these airtight:
 ### One architectural recommendation
 
 For this particular assignment, I would **not introduce NextAuth/Auth.js unless the starter project already uses it**. A small custom JWT + HttpOnly cookie layer is easier to understand, demonstrate, and debug during a backend-focused hackathon. The key is to implement it securely rather than merely checking for the presence of a cookie.
+
+
+                    ┌───────────────────┐
+                    │     Next.js       │
+                    │     Frontend      │
+                    └─────────┬─────────┘
+                              │
+                              │ HTTP
+                              ▼
+                    ┌───────────────────┐
+                    │      Express      │
+                    │      Backend      │
+                    └─────────┬─────────┘
+                              │
+              ┌───────────────┼────────────────┐
+              │               │                │
+              ▼               ▼                ▼
+         Auth API        Seat API        Booking API
+              │               │                │
+              └───────────────┼────────────────┘
+                              │
+                              ▼
+                    ┌───────────────────┐
+                    │  Neon PostgreSQL  │
+                    │                   │
+                    │ users             │
+                    │ seats             │
+                    └───────────────────┘
+
+                    book-my-ticket/
+│
+├── backend/
+│   ├── index.mjs
+│   ├── db.js
+│   ├── auth.js
+│   ├── middleware/
+│   │   └── authMiddleware.js
+│   ├── routes/
+│   │   ├── auth.js
+│   │   ├── seats.js
+│   │   └── bookings.js
+│   └── ...
+│
+├── frontend/
+│   └── Next.js
+│
+├── README.md
+└── package.json
